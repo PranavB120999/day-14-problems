@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 
 namespace StackProblem
 {
@@ -43,6 +44,33 @@ namespace StackProblem
             }
         }
 
+        public void pop()
+        {
+            if (top == null)
+            {
+                Console.Write("Nothing in the stack");
+                return;
+            }
+            top = (top).link;
+        }
+
+        public bool isEmpty()
+        {
+            return top == null;
+        }
+        public int peek()
+        {
+            if (!isEmpty())
+            {
+                return top.data;
+            }
+            else
+            {
+                Console.WriteLine("Stack is empty");
+                return -1;
+            }
+        }
+
         public static void Main(String[] args)
         {
             StackUsingLinkedlist obj = new StackUsingLinkedlist();
@@ -53,6 +81,14 @@ namespace StackProblem
 
             obj.Display();
 
+            Console.WriteLine("\nPerforming Pop operation");
+            Console.WriteLine("Top peek item in stack is: {0}", obj.peek());
+            obj.pop();
+            Console.WriteLine("Top peek item in stack is: {0}", obj.peek());
+            obj.pop();
+            Console.WriteLine("Top peek item in stack is: {0}", obj.peek());
+            obj.pop();
+            obj.peek();
         }
     }
 }
