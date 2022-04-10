@@ -1,57 +1,68 @@
 ﻿using System;
 
-namespace StackProblem
+namespace QueueProgram
 {
-    public class StackUsingLinkedlist
+    internal class QNode
     {
-        private class Node
+
+        public int key;
+        public QNode next;
+
+        public QNode(int key)
         {
-            public int data;
-            public Node link;
+            this.key = key;
+            this.next = null;
         }
-        Node top;
-        public StackUsingLinkedlist()
+    }
+    class Queue
+    {
+        QNode front, rear;
+
+        public Queue()
         {
-            this.top = null;
+            this.front = this.rear = null;
         }
 
-        public void Push(int x)
+        public void enqueue(int key)
         {
-            Node temp = new Node();
+            QNode temp = new QNode(key);
 
-            temp.data = x;
-            temp.link = top;
-            top = temp;
-        }
-
-        public void Display()
-        {
-            if (top == null)
+            if (this.rear == null)
             {
-                Console.WriteLine("Nothing in the Stack");
+                this.front = this.rear = temp;
                 return;
             }
-            else
-            {
-                Console.WriteLine("The Elements of Stack Is:");
-                Node temp = top;
-                while (temp != null)
-                {
-                    Console.Write("{0} ", temp.data);
-                    temp = temp.link;
-                }
-            }
+            this.rear.next = temp;
+            this.rear = temp;
         }
 
-        public static void Main(String[] args)
+        public void dequeue()
         {
-            StackUsingLinkedlist obj = new StackUsingLinkedlist();
+            if (this.front == null)
+                return;
 
-            obj.Push(56);
-            obj.Push(30);
-            obj.Push(70);
+            QNode temp = this.front;
+            this.front = this.front.next;
 
-            obj.Display();
+            if (this.front == null)
+                this.rear = null;
+        }
+
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Hello, Welcome to Queue Problem");
+            Console.WriteLine("Adding elements to Queue");
+            Queue q = new Queue();
+            q.enqueue(56);
+            q.enqueue(30);
+            q.enqueue(70);
+            Console.WriteLine("statrting element is: " + q.front.key);
+            Console.WriteLine("Last element is: " + q.rear.key);
+            Console.WriteLine("Removing element from Queue");
+            q.dequeue();
+            q.dequeue();
+            q.dequeue();
+            Console.WriteLine("All elements are removed ");
 
         }
     }
